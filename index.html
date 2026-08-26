@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Controle Gate</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #1a252f;
+            margin-bottom: 30px;
+        }
+        #dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: #ffffff;
+            padding: 25px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            text-align: center;
+            border-top: 5px solid #2980b9;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-title {
+            font-size: 13px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+        .card-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .mensagem-carregamento, .erro {
+            text-align: center;
+            font-size: 18px;
+            grid-column: 1 / -1;
+        }
+        .erro { color: #e74c3c; }
+        .ajuda-cors {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ffeeba;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CONTROLE GATE V2</h1>
+    
+    <div id="dashboard-container">
+        <div class="mensagem-carregamento">Carregando dados em tempo real...</div>
+    </div>
+
+    <script>
+        // O seu novo link CSV correto
+        const urlDaPlanilha = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTFqRjx4AMZn4Ek4EPrXweDbs8x5MWR4Vbro23Bq-Br0JaShYbAWR79jXJNE8-OvzJiVz6jRZEODaud/pub?output=csv';
+
+        function carregarDashboard() {
+            // Usando o PapaParse para baixar e abrir a planilha de forma mais robusta
+            Papa.parse(urlDaPlanilha, {
+                download: true,
+                header: false,
+                skipEmptyLines: true, // Ignora linhas em branco automaticamente
+                complete: function(resultado) {
+                    const dados = resultado.data;
+                    const container = document.getElementById('dashboard-container');
+                    container.innerHTML = ''; // Limpa o "Carregando..."
+
+                    // Percorre todas as linhas encontradas
+                    dados.forEach(linha => {
+                        // Verifica se a linha tem o título (Coluna A) e o valor (Coluna B)
+                        if (linha.length >= 2) {
+                            const titulo = linha[0] ? linha[0].trim() : '';
+                            const valor = linha[1] ? linha[1].trim() : '';
+
+                            // Se a linha estiver sem título, pula para a próxima
+                            if (titulo === '') return;
+
+                            // Monta o cartão na tela
+                            const cardHTML = `
+                                <div class="card">
+                                    <div class="card-title">${titulo}</div>
+                                    <div class="card-value">${valor}</div>
+                                </div>
+                            `;
+                            container.innerHTML += cardHTML;
+                        }
+                    });
+                },
+                error: function(erro) {
+                    console.error("Erro ao carregar:", erro);
+                    exibirMensagemErro();
+                }
+            });
+        }
+
+        function exibirMensagemErro() {
+            document.getElementById('dashboard-container').innerHTML = `
+                <div class="erro">
+                    <strong>Não foi possível carregar os dados diretamente nesta página.</strong>
+                    <div class="ajuda-cors">
+                        💡 <strong>Motivo técnico:</strong> A plataforma <code>grid.adminml.com</code> possui travas de segurança (CORS) que impedem que o código JavaScript puxe dados do Google Docs para dentro dela.<br><br>
+                        <strong>Como testar e ver funcionando:</strong> Salve esse código em um arquivo chamado <code>index.html</code> no seu computador e dê dois cliques nele. Ele abrirá no seu navegador local funcionando perfeitamente com a sua planilha!
+                    </div>
+                </div>
+            `;
+        }
+
+        // Executa
+        carregarDashboard();
+    </script>
+
+</body>
+</html>
