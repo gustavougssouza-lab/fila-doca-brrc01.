@@ -389,7 +389,10 @@ if (repoInfo) {
 let cachedSnapshot = null;
 
 async function loadSnapshot() {
-  const res = await fetch('raw.txt', { cache: 'no-store' });
+  // GitHub Pages' CDN caches raw.txt for a few minutes regardless of the
+  // browser's own cache setting, so a cache-busting query param is required
+  // to always fetch the latest committed version.
+  const res = await fetch('raw.txt?t=' + Date.now(), { cache: 'no-store' });
   if (!res.ok) throw new Error('raw.txt not found');
   const text = await res.text();
   const rows = parseQueueInput(text);
