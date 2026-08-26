@@ -1,138 +1,528 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Controle Gate</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 30px;
-        }
-        h1 {
-            text-align: center;
-            color: #1a252f;
-            margin-bottom: 30px;
-        }
-        #dashboard-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .card {
-            background-color: #ffffff;
-            padding: 25px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            text-align: center;
-            border-top: 5px solid #2980b9;
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card-title {
-            font-size: 13px;
-            color: #7f8c8d;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-bottom: 15px;
-            letter-spacing: 0.5px;
-        }
-        .card-value {
-            font-size: 32px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .mensagem-carregamento, .erro {
-            text-align: center;
-            font-size: 18px;
-            grid-column: 1 / -1;
-        }
-        .erro { color: #e74c3c; }
-        .ajuda-cors {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #555;
-            background: #fff3cd;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ffeeba;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fila da Doca</title>
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --navy: #0d1b3e;
+    --navy-light: #16294f;
+    --navy-lighter: #1e3364;
+    --yellow: #f4d30c;
+    --sky: #40c7f4;
+    --text: #ffffff;
+    --text-muted: #a9b7d6;
+  }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--navy);
+    color: var(--text);
+  }
+  header {
+    background: var(--navy);
+    padding: 20px 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 3px solid var(--yellow);
+  }
+  header img.logo-img {
+    height: 115px;
+    width: auto;
+  }
+  main {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+  h1 {
+    font-size: 20px;
+    margin: 4px 0 4px;
+    color: var(--text);
+  }
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  .card {
+    background: var(--navy-light);
+    border: 1px solid var(--navy-lighter);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    margin-bottom: 16px;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .field {
+    margin-bottom: 16px;
+  }
+  .field .helper {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 17px;
+    border: 1px solid var(--navy-lighter);
+    border-radius: 10px;
+    outline: none;
+    font-family: inherit;
+    background: var(--navy);
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  input::placeholder { color: #5c6c95; }
+  input:focus { border-color: var(--sky); }
+  .search-row { display: flex; gap: 8px; }
+  .search-row input { flex: 1; }
+  .search-row button { width: auto; padding: 0 20px; }
+  button {
+    width: 100%;
+    background: var(--yellow);
+    color: var(--navy);
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; cursor: default; }
+  a.secondary-link {
+    display: block;
+    text-align: center;
+    background: var(--navy-lighter);
+    color: var(--sky);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .result-card { display: none; text-align: center; }
+  .result-card.show { display: block; }
+  .eta {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--yellow);
+    line-height: 1;
+    margin: 6px 0;
+  }
+  .eta-label { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: left; }
+  .info-item { background: var(--navy-lighter); border-radius: 10px; padding: 10px 12px; }
+  .info-item .label { font-size: 11px; text-transform: uppercase; color: var(--text-muted); }
+  .info-item .value { font-size: 16px; font-weight: 700; margin-top: 2px; color: var(--sky); }
+  .msg {
+    display: none;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+  .msg.show { display: block; }
+  .msg.warn { background: #4a3f0a; color: var(--yellow); }
+  .msg.error { background: #4a1620; color: #ff8fa3; }
+  .msg.info { background: #123a52; color: var(--sky); }
+  .msg.ok { background: #123d2a; color: #6be8a3; }
+  details { margin-top: 4px; }
+  summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--sky); padding: 4px 0; }
+  footer { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 24px; line-height: 1.5; }
+</style>
 </head>
 <body>
 
-    <h1>CONTROLE GATE V2</h1>
-    
-    <div id="dashboard-container">
-        <div class="mensagem-carregamento">Carregando dados em tempo real...</div>
+<header>
+  <img class="logo-img" src="data:image/png;base64,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" alt="Apollo RC 01">
+</header>
+
+<main>
+  <h1>Fila da doca</h1>
+  <div class="subtitle">Digite a placa do veículo para ver a posição na fila e a previsão de horário para ser chamado.</div>
+
+  <div class="msg" id="staleMsg"></div>
+
+  <div class="card">
+    <div class="search-row">
+      <input type="text" id="plateInput" placeholder="Ex: ABC1D23" maxlength="10" autocomplete="off">
+      <button id="searchBtn">Buscar</button>
     </div>
+    <div class="field" style="margin-top:10px;margin-bottom:0;">
+      <div class="helper" id="updatedHint">Carregando dados da fila…</div>
+    </div>
+  </div>
 
-    <script>
-        // O seu novo link CSV correto
-        const urlDaPlanilha = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTFqRjx4AMZn4Ek4EPrXweDbs8x5MWR4Vbro23Bq-Br0JaShYbAWR79jXJNE8-OvzJiVz6jRZEODaud/pub?output=csv';
+  <div class="msg" id="notFoundMsg"></div>
 
-        function carregarDashboard() {
-            // Usando o PapaParse para baixar e abrir a planilha de forma mais robusta
-            Papa.parse(urlDaPlanilha, {
-                download: true,
-                header: false,
-                skipEmptyLines: true, // Ignora linhas em branco automaticamente
-                complete: function(resultado) {
-                    const dados = resultado.data;
-                    const container = document.getElementById('dashboard-container');
-                    container.innerHTML = ''; // Limpa o "Carregando..."
+  <div class="card result-card" id="resultCard">
+    <div class="eta-label">Posição na fila</div>
+    <div class="eta" id="posValue">–</div>
+    <div class="helper" id="posHelper" style="text-align:center;margin-bottom:14px;">&nbsp;</div>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="label">Chegada</div>
+        <div class="value" id="valChegada">–</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Espera estimada</div>
+        <div class="value" id="valEspera">–</div>
+      </div>
+      <div class="info-item" style="grid-column: 1 / -1;">
+        <div class="label">Previsão para ser chamado</div>
+        <div class="value" id="valEta" style="font-size:20px;">–</div>
+      </div>
+    </div>
+  </div>
 
-                    // Percorre todas as linhas encontradas
-                    dados.forEach(linha => {
-                        // Verifica se a linha tem o título (Coluna A) e o valor (Coluna B)
-                        if (linha.length >= 2) {
-                            const titulo = linha[0] ? linha[0].trim() : '';
-                            const valor = linha[1] ? linha[1].trim() : '';
+  <details>
+    <summary>Equipe do site: como atualizar a fila</summary>
+    <div class="card" style="margin-top:10px;">
+      <div class="helper" style="margin-bottom:12px;">
+        Esta página é 100% pública (GitHub Pages) e não tem botão de salvar — a atualização é feita direto no arquivo
+        <code>raw.txt</code> do repositório no GitHub. Cole ali o mesmo texto copiado do Dock Management (ou o formato PLACA;HH:MM, um por linha) e clique em "Commit changes". A página busca o arquivo automaticamente a cada abertura.
+      </div>
+      <a class="secondary-link" id="editRawLink" href="#" target="_blank" rel="noopener">Abrir editor do raw.txt no GitHub</a>
+    </div>
+  </details>
 
-                            // Se a linha estiver sem título, pula para a próxima
-                            if (titulo === '') return;
+  <footer>Página pública hospedada no GitHub Pages — qualquer pessoa com o link pode consultar, sem precisar de login.</footer>
+</main>
 
-                            // Monta o cartão na tela
-                            const cardHTML = `
-                                <div class="card">
-                                    <div class="card-title">${titulo}</div>
-                                    <div class="card-value">${valor}</div>
-                                </div>
-                            `;
-                            container.innerHTML += cardHTML;
-                        }
-                    });
-                },
-                error: function(erro) {
-                    console.error("Erro ao carregar:", erro);
-                    exibirMensagemErro();
-                }
-            });
-        }
+<script>
+function pad(n) { return n.toString().padStart(2, '0'); }
 
-        function exibirMensagemErro() {
-            document.getElementById('dashboard-container').innerHTML = `
-                <div class="erro">
-                    <strong>Não foi possível carregar os dados diretamente nesta página.</strong>
-                    <div class="ajuda-cors">
-                        💡 <strong>Motivo técnico:</strong> A plataforma <code>grid.adminml.com</code> possui travas de segurança (CORS) que impedem que o código JavaScript puxe dados do Google Docs para dentro dela.<br><br>
-                        <strong>Como testar e ver funcionando:</strong> Salve esse código em um arquivo chamado <code>index.html</code> no seu computador e dê dois cliques nele. Ele abrirá no seu navegador local funcionando perfeitamente com a sua planilha!
-                    </div>
-                </div>
-            `;
-        }
+function normPlate(p) {
+  return (p || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+}
 
-        // Executa
-        carregarDashboard();
-    </script>
+function showMsg(id, text, type) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className = 'msg show ' + (type || 'info');
+}
+
+function hideMsg(id) {
+  document.getElementById(id).className = 'msg';
+}
+
+function fmtMinutes(mins) {
+  const h = Math.floor(mins / 60);
+  const m = Math.round(mins % 60);
+  if (h > 0) return h + 'h ' + m + 'min';
+  return m + ' min';
+}
+
+function addMinutesToTime(hhmm, mins) {
+  const [h, m] = hhmm.split(':').map(Number);
+  let total = h * 60 + m + Math.round(mins);
+  total = ((total % 1440) + 1440) % 1440;
+  return pad(Math.floor(total / 60)) + ':' + pad(total % 60);
+}
+
+// The queue commonly spans midnight (e.g. arrivals from 21:00 through 01:00).
+// Plain "minutes since midnight" would sort 00:15 as earlier than 21:05, which
+// is wrong — 00:15 actually happened later. Since a dock queue's visible
+// window is always well under 24h, treat any "early morning" timestamp
+// (before noon) as happening after the "evening" ones for sorting purposes.
+function arrivalSortKey(chegadaMin) {
+  return chegadaMin < 720 ? chegadaMin + 1440 : chegadaMin;
+}
+
+// Splits the waiting rows into two groups by shipment size (volumes/pacotes):
+// "small" (<= 50) and "large" (> 50), each sorted by true arrival order.
+// Rows with no volume/pacote information end up in "unknown".
+const QTY_THRESHOLD = 50;
+function splitByQty(waitingRows) {
+  const small = [];
+  const large = [];
+  const unknown = [];
+  for (const r of waitingRows) {
+    if (r.qty === null || r.qty === undefined) unknown.push(r);
+    else if (r.qty <= QTY_THRESHOLD) small.push(r);
+    else large.push(r);
+  }
+  const byArrival = function (a, b) { return arrivalSortKey(a.chegadaMin) - arrivalSortKey(b.chegadaMin); };
+  small.sort(byArrival);
+  large.sort(byArrival);
+  unknown.sort(byArrival);
+  return { small: small, large: large, unknown: unknown };
+}
+
+// Average wait time = average elapsed time (now - chegada) of the 10 most
+// recent arrivals currently "Esperando doca" (excluding the plate being
+// searched). Falls back to however many are available if fewer than 10.
+function computeAvgWaitFromLast10(waitingRows, excludePlate) {
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+
+  const candidates = waitingRows
+    .filter(function (r) { return normPlate(r.plate) !== excludePlate; })
+    .slice()
+    .sort(function (a, b) { return arrivalSortKey(b.chegadaMin) - arrivalSortKey(a.chegadaMin); }) // most recent first
+    .slice(0, 10);
+
+  if (!candidates.length) return { avgWait: null, sampleSize: 0 };
+
+  const elapsedList = candidates.map(function (r) {
+    let elapsed = nowMin - r.chegadaMin;
+    if (elapsed < 0) elapsed += 1440; // crossed midnight
+    return elapsed;
+  });
+
+  const avgWait = elapsedList.reduce(function (a, b) { return a + b; }, 0) / elapsedList.length;
+  return { avgWait: avgWait, sampleSize: candidates.length };
+}
+
+// Parses the simple manual format: one line per vehicle, "PLACA;HH:MM"
+function parseSemicolonFormat(text) {
+  const rows = [];
+  const lines = text.split('\n');
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    const parts = trimmed.split(';');
+    if (parts.length < 2) continue;
+    const plate = parts[0].trim();
+    const chegada = parts[1].trim();
+    const m = chegada.match(/^(\d{1,2}):(\d{2})$/);
+    if (!plate || !m) continue;
+    const chegadaMin = Number(m[1]) * 60 + Number(m[2]);
+    rows.push({ plate: plate, chegada: pad(Number(m[1])) + ':' + m[2], chegadaMin: chegadaMin, status: 'Esperando doca', qty: null });
+  }
+  return rows;
+}
+
+// Parses text copied directly from the Dock Management page (one or many
+// vehicle blocks concatenated), e.g.:
+// "ANE3G93Carro\nFrete próprio ou contratado\nAgenda 00:15FTLVer ISs\nEm site:\n00:13:28\nChegada: 23:41ATRASADO 23:26\n15 volumes149 unidades\nA caminho"
+function parseDockManagementPaste(text) {
+  const plateRe = /\b([A-Z]{3}\d[A-Z]\d{2}|[A-Z]{3}\d{4})/g;
+  const upper = text.toUpperCase();
+  const matches = [...upper.matchAll(plateRe)];
+  const rows = [];
+  for (let i = 0; i < matches.length; i++) {
+    const start = matches[i].index;
+    const end = i + 1 < matches.length ? matches[i + 1].index : text.length;
+    const block = text.slice(start, end);
+    const plate = matches[i][1];
+
+    const chegadaMatch = block.match(/Chegada:\s*(\d{1,2}):(\d{2})/i);
+    if (!chegadaMatch) continue;
+    const chegada = pad(Number(chegadaMatch[1])) + ':' + chegadaMatch[2];
+    const chegadaMin = Number(chegadaMatch[1]) * 60 + Number(chegadaMatch[2]);
+
+    let status = 'Esperando doca';
+    if (/Em\s*doca/i.test(block)) status = 'Em doca';
+    else if (/A\s*caminho/i.test(block)) status = 'A caminho';
+    else if (/En\s*salida/i.test(block)) status = 'En salida';
+    else if (/Esperando\s*doca/i.test(block)) status = 'Esperando doca';
+
+    // "Doca 43" (capitalized) is the assigned dock label — kept case-sensitive so it
+    // doesn't match the lowercase "Em doca" / "Esperando doca" status text.
+    const docaMatch = block.match(/\bDoca\s+(\d+)\b/);
+    const doca = docaMatch ? docaMatch[1] : null;
+
+    // Shipment size — "277 volumes" (FTL) or "312 Pacotes" (Colecta).
+    const qtyMatch = block.match(/(\d+)\s*(?:volumes|pacotes)/i);
+    const qty = qtyMatch ? Number(qtyMatch[1]) : null;
+
+    rows.push({ plate: plate, chegada: chegada, chegadaMin: chegadaMin, status: status, doca: doca, qty: qty });
+  }
+  return rows;
+}
+
+// Tries the simple PLACA;HH:MM format first; if nothing matches, falls back
+// to parsing raw text copied straight from the Dock Management page.
+function parseQueueInput(text) {
+  const simple = parseSemicolonFormat(text);
+  if (simple.length) return simple;
+  return parseDockManagementPaste(text);
+}
+
+function statusMessageFor(row) {
+  const status = row.status;
+  if (status === 'A caminho') return 'Seu veículo ainda está a caminho do site (ainda não chegou). Assim que chegar, ele entra na fila de espera.';
+  if (status === 'Em doca') {
+    return row.doca
+      ? 'Seu veículo já está sendo atendido na Doca ' + row.doca + '.'
+      : 'Seu veículo já está sendo atendido em uma doca.';
+  }
+  if (status === 'En salida') return 'Seu veículo já foi atendido e está em processo de saída do site.';
+  return null;
+}
+
+// GitHub Pages auto-detection: works out {owner}/{repo} from the current URL
+// so the "edit raw.txt" link and the last-updated lookup work no matter which
+// repo this ends up published under.
+function detectRepo() {
+  const host = location.hostname; // "{owner}.github.io"
+  if (!host.endsWith('.github.io')) return null;
+  const owner = host.split('.')[0];
+  const segments = location.pathname.split('/').filter(Boolean);
+  const repo = segments.length ? segments[0] : (owner + '.github.io');
+  return { owner: owner, repo: repo };
+}
+
+const repoInfo = detectRepo();
+const editLink = document.getElementById('editRawLink');
+if (repoInfo) {
+  editLink.href = 'https://github.com/' + repoInfo.owner + '/' + repoInfo.repo + '/edit/main/raw.txt';
+} else {
+  editLink.style.display = 'none';
+}
+
+let cachedSnapshot = null;
+
+async function loadSnapshot() {
+  const res = await fetch('raw.txt', { cache: 'no-store' });
+  if (!res.ok) throw new Error('raw.txt not found');
+  const text = await res.text();
+  const rows = parseQueueInput(text);
+  let updatedAt = null;
+  if (repoInfo) {
+    try {
+      const apiRes = await fetch(
+        'https://api.github.com/repos/' + repoInfo.owner + '/' + repoInfo.repo + '/commits?path=raw.txt&per_page=1',
+        { cache: 'no-store' }
+      );
+      if (apiRes.ok) {
+        const commits = await apiRes.json();
+        if (commits && commits[0]) updatedAt = commits[0].commit.committer.date;
+      }
+    } catch (err) {
+      // ignore — page still works without the "last updated" hint
+    }
+  }
+  const snap = { rows: rows, updatedAt: updatedAt };
+  cachedSnapshot = snap;
+  return snap;
+}
+
+async function refreshUpdatedHint() {
+  const hint = document.getElementById('updatedHint');
+  hideMsg('staleMsg');
+  try {
+    const snap = await loadSnapshot();
+    if (!snap.rows.length) {
+      hint.textContent = 'Fila ainda não foi atualizada pela equipe do site.';
+      return;
+    }
+    const waitingCount = snap.rows.filter(function (r) { return !r.status || r.status === 'Esperando doca'; }).length;
+    if (snap.updatedAt) {
+      const updatedAt = new Date(snap.updatedAt);
+      const ageMin = Math.round((Date.now() - updatedAt.getTime()) / 60000);
+      hint.textContent = 'Fila atualizada às ' + pad(updatedAt.getHours()) + ':' + pad(updatedAt.getMinutes()) + ' (há ' + Math.max(ageMin, 0) + ' min) · ' + waitingCount + ' veículo(s) esperando doca';
+      if (ageMin > 20) {
+        showMsg('staleMsg', 'Atenção: a fila foi atualizada há ' + ageMin + ' min. Peça para a equipe do site atualizar novamente para uma estimativa mais precisa.', 'warn');
+      }
+    } else {
+      hint.textContent = waitingCount + ' veículo(s) esperando doca';
+    }
+  } catch (err) {
+    hint.textContent = 'Não foi possível carregar os dados da fila agora.';
+  }
+}
+
+document.getElementById('searchBtn').addEventListener('click', async function () {
+  hideMsg('notFoundMsg');
+  document.getElementById('resultCard').classList.remove('show');
+
+  const plate = normPlate(document.getElementById('plateInput').value);
+  if (!plate) {
+    showMsg('notFoundMsg', 'Digite a placa do veículo.', 'warn');
+    return;
+  }
+
+  const btn = document.getElementById('searchBtn');
+  btn.disabled = true;
+  const originalText = btn.textContent;
+  btn.textContent = 'Buscando…';
+
+  try {
+    const snap = cachedSnapshot || await loadSnapshot();
+    if (!snap.rows.length) {
+      showMsg('notFoundMsg', 'Ainda não há dados da fila. Peça para a equipe do site atualizar (veja "Equipe do site: como atualizar a fila" abaixo).', 'error');
+      return;
+    }
+
+    const waitingAll = snap.rows.filter(function (r) { return !r.status || r.status === 'Esperando doca'; });
+    const target = waitingAll.find(function (r) { return normPlate(r.plate) === plate; });
+
+    if (!target) {
+      // Not in the waiting queue — check if it exists with another status
+      // (a caminho / em doca / en salida) so we can give a more useful message.
+      const other = snap.rows.find(function (r) { return normPlate(r.plate) === plate; });
+      const otherMsg = other ? statusMessageFor(other) : null;
+      if (otherMsg) {
+        showMsg('notFoundMsg', otherMsg, 'info');
+      } else {
+        showMsg('notFoundMsg', 'Placa não encontrada na última fila salva. Pode ser que o veículo já tenha sido chamado, ainda não conste na lista, ou a placa foi digitada diferente do cadastro.', 'error');
+      }
+      return;
+    }
+
+    // Position and wait time are computed within the vehicle's own group
+    // (by shipment size), since each group is queued separately.
+    const groups = splitByQty(waitingAll);
+    let groupRows, groupLabel;
+    if (target.qty === null || target.qty === undefined) {
+      groupRows = groups.unknown;
+      groupLabel = 'sem informação de volume/pacotes';
+    } else if (target.qty <= QTY_THRESHOLD) {
+      groupRows = groups.small;
+      groupLabel = 'até 50 vol./pacotes';
+    } else {
+      groupRows = groups.large;
+      groupLabel = 'mais de 50 vol./pacotes';
+    }
+
+    const idx = groupRows.findIndex(function (r) { return normPlate(r.plate) === plate; });
+    const position = idx + 1;
+    const entry = groupRows[idx];
+    const { avgWait, sampleSize } = computeAvgWaitFromLast10(groupRows, plate);
+
+    document.getElementById('posValue').textContent = position;
+    document.getElementById('posHelper').textContent = 'de ' + groupRows.length + ' veículo(s) no grupo (' + groupLabel + ')';
+    document.getElementById('valChegada').textContent = entry.chegada;
+
+    if (avgWait !== null) {
+      document.getElementById('valEspera').textContent = fmtMinutes(avgWait) + ' (méd. últ. ' + sampleSize + ')';
+      document.getElementById('valEta').textContent = addMinutesToTime(entry.chegada, avgWait);
+    } else {
+      document.getElementById('valEspera').textContent = 'sem dado';
+      document.getElementById('valEta').textContent = 'sem dado';
+    }
+
+    document.getElementById('resultCard').classList.add('show');
+  } catch (err) {
+    showMsg('notFoundMsg', 'Não foi possível consultar a fila agora. Tente novamente em instantes.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
+});
+
+document.getElementById('plateInput').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') document.getElementById('searchBtn').click();
+});
+
+refreshUpdatedHint();
+</script>
 
 </body>
 </html>

@@ -1,262 +1,530 @@
-EDR1G44
-3/4/Médio
+IWG1A54Carreta
 Frete próprio ou contratado
-Agenda 07:00
-FTLVer ISs
+Agenda 00:30FTLVer ISs
+Em site:
+11:09:32
+Chegada: 23:15ATRASADO 22:45
+4106 volumes4106 unidades
+Em doca
+08:52:25
+Gerar AR
+Doca 48
+Hacer checkout
+STH6J10Carreta
+Frete próprio ou contratado
+Agenda 03:00FTLVer ISs
+Em site:
+08:20:51
+Chegada: 02:03ANTICIPADO 0:57
+1170 volumes1000 unidades
+Em doca
+06:54:57
+Gerar AR
+Doca 5
+Hacer checkout
+AXE8E23Carreta
+Frete próprio ou contratado
+Agenda 03:00FTLVer ISs
+Em site:
+08:16:04
+Chegada: 02:08ANTICIPADO 0:52
+900 volumes900 unidades
+Em doca
+06:05:40
+Gerar AR
+Doca 19
+Hacer checkout
+DPB6A33Carreta
+Frete próprio ou contratado
+Agenda 03:00FTLVer ISs
+Em site:
+08:13:02
+Chegada: 02:11ANTICIPADO 0:49
+935 volumes850 unidades
+Em doca
+06:44:34
+Gerar AR
+Doca 18
+Hacer checkout
+BTT0H78Truck
+Frete próprio ou contratado
+Agenda 03:00FTLVer ISs
+Em site:
+07:22:13
+Chegada: 03:02ATRASADO 0:02
+1197 volumes7941 unidades
+Em doca
+06:01:26
+Gerar AR
+Doca 30
+Hacer checkout
+QJU2F96Truck
+Frete próprio ou contratado
+Agenda 05:00FTLVer ISs
+Em site:
+05:42:24
+Chegada: 04:42ANTICIPADO 0:18
+1122 volumes3480 unidades
+Em doca
+03:52:32
+Gerar AR
+Doca 225
+Hacer checkout
+MLA2E26Carreta
+Frete próprio ou contratado
+Agenda 07:15FTLVer ISs
+Em site:
+04:01:56
+Chegada: 06:22ANTICIPADO 0:53
+755 volumes3999 unidades
+Em doca
+02:54:59
+Gerar AR
+Doca 227
+Hacer checkout
+TKU3F573/4/Médio
+Frete próprio ou contratado
+Agenda 07:30FTLVer ISs
+Em site:
+03:42:53
+Chegada: 06:41ANTICIPADO 0:49
+790 volumes1000 unidades
+Em doca
+02:07:22
+Gerar AR
+Doca 26
+Hacer checkout
+SCL0F013/4/Médio
+Frete próprio ou contratado
+Agenda 06:15FTLVer ISs
+Em site:
+02:57:35
+Chegada: 07:27ATRASADO 1:12
+1281 volumes1809 unidades
+Em doca
+01:49:37
+Gerar AR
+Doca 15
+Hacer checkout
+RHO8F05Carreta
+Frete próprio ou contratado
+Agenda 07:30FTLVer ISs
+Em site:
+02:32:46
+Chegada: 07:52ATRASADO 0:22
+197 volumes12784 unidades
+Em doca
+00:35:26
+Gerar AR
+Doca 23
+Hacer checkout
+RCZ3D11Truck
+Frete próprio ou contratado
+Agenda 07:00FTLVer ISs
+Em site:
+02:26:04
+Chegada: 07:58ATRASADO 0:58
+350 volumes2691 unidades
+Em doca
+00:12:38
+Gerar AR
+Doca 229
+Hacer checkout
+EFR8F743/4/Médio
+Frete próprio ou contratado
+Agenda 08:30FTLVer ISs
+Em site:
+02:23:34
+Chegada: 08:01ANTICIPADO 0:29
+127 volumes6600 unidades
+Em doca
+00:16:32
+Gerar AR
+Doca 31
+Hacer checkout
+FBB1D79VUC
+Frete próprio ou contratado
+Agenda 07:45FTLVer ISs
+Em site:
+02:19:42
+Chegada: 08:05ATRASADO 0:20
+32 volumes1000 unidades
+Em doca
+00:15:26
+Gerar AR
+Doca 37
+Hacer checkout
+SVR8G54Truck
+Frete próprio ou contratado
+Agenda 07:00FTLVer ISs
+Em site:
+02:19:01
+Chegada: 08:05ATRASADO 1:05
+206 volumes4000 unidades
+Em doca
+00:22:46
+Gerar AR
+Doca 45
+Hacer checkout
+GEG0477Van
+Frete próprio ou contratado
+Agenda 07:15FTLVer ISs
+Em site:
+02:16:03
+Chegada: 08:08ATRASADO 0:53
+65 volumes3500 unidades
+Em doca
+00:20:10
+Gerar AR
+Doca 41
+Hacer checkout
+TPP4A773/4/Médio
+Frete próprio ou contratado
+Agenda 08:30FTLVer ISs
+Em site:
+02:15:39
+Chegada: 08:09ANTICIPADO 0:21
+217 volumes3080 unidades
+A caminho
+00:31:11
+Gerar AR
+Doca 263
+Hacer checkin
+DWE3B22Van
+Frete próprio ou contratado
+Agenda 07:00FTLVer ISs
+Em site:
+02:13:14
+Chegada: 08:11ATRASADO 1:11
+676 volumes676 unidades
+Em doca
+00:20:29
+Gerar AR
+Doca 239
+Hacer checkout
+DVI3A82Carro
+Frete próprio ou contratado
+Agenda 07:00FTLVer ISs
+Em site:
+02:07:32
+Chegada: 08:17ATRASADO 1:17
+214 volumes527 unidades
+Em doca
+00:15:43
+Gerar AR
+Doca 40
+Hacer checkout
+DIC6H62Van
+Frete próprio ou contratado
+Agenda 09:30FTLVer ISs
+Em site:
+02:02:46
+Chegada: 08:22ANTICIPADO 1:08
+160 volumes9536 unidades
+A caminho
+00:15:01
+Gerar AR
+Doca 42
+Hacer checkin
+EIR80603/4/Médio
+Frete próprio ou contratado
+Agenda 07:00FTLVer ISs
+Em site:
+01:59:02
+Chegada: 08:25ATRASADO 1:25
+134 volumes7500 unidades
+A caminho
+00:03:26
+Gerar AR
+Doca 246
+Hacer checkin
+DUR9G133/4/Médio
+Frete próprio ou contratado
+Agenda 07:45FTLVer ISs
+Em site:
+01:55:21
+Chegada: 08:29ATRASADO 0:44
+181 volumes763 unidades
+Esperando doca
+01:55:21
+Gerar AR
+Asignar Doca
+EUS0D723/4/Médio
+Frete próprio ou contratado
+Agenda 08:15FTLVer ISs
+Em site:
+01:54:35
+Chegada: 08:30ATRASADO 0:15
+167 volumes1891 unidades
+Esperando doca
+01:54:35
+Gerar AR
+Asignar Doca
+RFB5F983/4/Médio
+Frete próprio ou contratado
+Agenda 08:30FTLVer ISs
+Em site:
+01:52:52
+Chegada: 08:31ATRASADO 0:01
+220 volumes220 unidades
+Esperando doca
+01:52:52
+Gerar AR
+Asignar Doca
+TME3A46Van
+Frete próprio ou contratado
+Agenda 09:30FTLVer ISs
+Em site:
+01:47:50
+Chegada: 08:37ANTICIPADO 0:53
+650 volumes650 unidades
+Em doca
+00:18:03
+Gerar AR
+Doca 244
+Hacer checkout
+TLU0H83Toco
+Frete próprio ou contratado
+Agenda 07:30FTLVer ISs
+Em site:
+01:47:40
+Chegada: 08:37ATRASADO 1:07
+102 volumes777 unidades
+Esperando doca
+01:47:40
+Gerar AR
+Asignar Doca
+MEV3J83VUC
+Frete próprio ou contratado
+Agenda 07:00FTLVer ISs
+Em site:
+01:47:12
+Chegada: 08:37ATRASADO 1:37
+71 volumes3000 unidades
+Esperando doca
+01:47:12
+Gerar AR
+Asignar Doca
+CZE2G11Toco
+Frete próprio ou contratado
+Agenda 08:00FTLVer ISs
+Em site:
+01:45:45
+Chegada: 08:39ATRASADO 0:39
+54 volumes681 unidades
+Esperando doca
+01:45:45
+Gerar AR
+Asignar Doca
+UDS9E21Utilitário
+Frete próprio ou contratado
+Agenda 07:30FTLVer ISs
+Em site:
+01:40:13
+Chegada: 08:44ATRASADO 1:14
+72 volumes650 unidades
+Esperando doca
+01:40:13
+Gerar AR
+Asignar Doca
+DTC9E19VUC
+Frete próprio ou contratado
+Agenda 08:45FTLVer ISs
+Em site:
+01:37:01
+Chegada: 08:47ATRASADO 0:02
+190 volumes150 unidades
+Esperando doca
+01:37:01
+Gerar AR
+Asignar Doca
+SVF4H693/4/Médio
+Frete próprio ou contratado
+Agenda 07:15FTLVer ISs
+Em site:
+01:35:57
+Chegada: 08:48ATRASADO 1:33
+18 volumes216 unidades
+Esperando doca
+01:35:57
+Gerar AR
+Asignar DocaEDR1G443/4/Médio
+Frete próprio ou contratado
+Agenda 07:00FTLVer ISs
 Em site:
 01:32:51
-Chegada: 08:52
-ATRASADO 1:52
-81 volumes
-550 unidades
+Chegada: 08:52ATRASADO 1:52
+81 volumes550 unidades
 Esperando doca
 01:32:51
 Gerar AR
 Asignar Doca
-
-GGQ6A85
-VUC
+GGQ6A85VUC
 Frete próprio ou contratado
-Agenda 08:15
-FTLVer ISs
+Agenda 08:15FTLVer ISs
 Em site:
 01:32:28
-Chegada: 08:52
-ATRASADO 0:37
-20 volumes
-500 unidades
+Chegada: 08:52ATRASADO 0:37
+20 volumes500 unidades
 Esperando doca
 01:32:28
 Gerar AR
 Asignar Doca
-
-AYZ0E29
-Van
+AYZ0E29Van
 Frete próprio ou contratado
-Agenda 07:30
-FTLVer ISs
+Agenda 07:30FTLVer ISs
 Em site:
 01:31:54
-Chegada: 08:53
-ATRASADO 1:23
-78 volumes
-1340 unidades
+Chegada: 08:53ATRASADO 1:23
+78 volumes1340 unidades
 Esperando doca
 01:31:54
 Gerar AR
 Asignar Doca
-
-FGL9C71
-3/4/Médio
+FGL9C713/4/Médio
 Frete próprio ou contratado
-Agenda 09:00
-FTLVer ISs
+Agenda 09:00FTLVer ISs
 Em site:
 01:27:43
-Chegada: 08:57
-ANTICIPADO 0:03
-900 volumes
-900 unidades
+Chegada: 08:57ANTICIPADO 0:03
+900 volumes900 unidades
 Esperando doca
 01:27:43
 Gerar AR
 Asignar Doca
-
-BTT1566
-Toco
+BTT1566Toco
 Frete próprio ou contratado
-Agenda 08:30
-FTLVer ISs
+Agenda 08:30FTLVer ISs
 Em site:
 01:05:33
-Chegada: 09:19
-ATRASADO 0:49
-4 volumes
-200 unidades
+Chegada: 09:19ATRASADO 0:49
+4 volumes200 unidades
 Esperando doca
 01:05:33
 Gerar AR
 Asignar Doca
-
-UOW5A32
-Carreta
+UOW5A32Carreta
 Frete próprio ou contratado
-Agenda 07:45
-FTLVer ISs
+Agenda 07:45FTLVer ISs
 Em site:
 00:53:28
-Chegada: 09:31
-ATRASADO 1:46
-62 volumes
-60 unidades
+Chegada: 09:31ATRASADO 1:46
+62 volumes60 unidades
 Esperando doca
 00:53:28
 Gerar AR
 Asignar Doca
-
-STC9H09
-Utilitário
+STC9H09Utilitário
 Frete próprio ou contratado
-Agenda 07:45
-FTLVer ISs
+Agenda 07:45FTLVer ISs
 Em site:
 00:46:00
-Chegada: 09:38
-ATRASADO 1:53
-150 volumes
-3000 unidades
+Chegada: 09:38ATRASADO 1:53
+150 volumes3000 unidades
 Esperando doca
 00:46:00
 Gerar AR
 Asignar Doca
-
-EJK2F51
-Utilitário
+EJK2F51Utilitário
 Frete próprio ou contratado
-Agenda 08:15
-FTLVer ISs
+Agenda 08:15FTLVer ISs
 Em site:
 00:40:30
-Chegada: 09:44
-ATRASADO 1:29
-16 volumes
-480 unidades
+Chegada: 09:44ATRASADO 1:29
+16 volumes480 unidades
 Esperando doca
 00:40:30
 Gerar AR
 Asignar Doca
-
-RTX8F51
-Utilitário
+RTX8F51Utilitário
 Frete próprio ou contratado
-Agenda 08:15
-FTLVer ISs
+Agenda 08:15FTLVer ISs
 Em site:
 00:39:39
-Chegada: 09:45
-ATRASADO 1:30
-89 volumes
-3470 unidades
+Chegada: 09:45ATRASADO 1:30
+89 volumes3470 unidades
 Esperando doca
 00:39:39
 Gerar AR
 Asignar Doca
-
-FUZ3G52
-Carreta
+FUZ3G52Carreta
 Frete próprio ou contratado
-Agenda 08:30
-FTLVer ISs
+Agenda 08:30FTLVer ISs
 Em site:
 00:35:17
-Chegada: 09:49
-ATRASADO 1:19
-34 volumes
-1020 unidades
+Chegada: 09:49ATRASADO 1:19
+34 volumes1020 unidades
 Esperando doca
 00:35:17
 Gerar AR
 Asignar Doca
-
-FYB1F22
-3/4/Médio
+FYB1F223/4/Médio
 Frete próprio ou contratado
-Agenda 09:30
-FTLVer ISs
+Agenda 09:30FTLVer ISs
 Em site:
 00:31:04
-Chegada: 09:53
-ATRASADO 0:23
-97 volumes
-411 unidades
+Chegada: 09:53ATRASADO 0:23
+97 volumes411 unidades
 Esperando doca
 00:31:04
 Gerar AR
 Asignar Doca
-
-CUU3J40
-Utilitário
+CUU3J40Utilitário
 Frete próprio ou contratado
-Agenda 09:30
-FTLVer ISs
+Agenda 09:30FTLVer ISs
 Em site:
 00:27:45
-Chegada: 09:57
-ATRASADO 0:27
-151 volumes
-1128 unidades
+Chegada: 09:57ATRASADO 0:27
+151 volumes1128 unidades
 Esperando doca
 00:27:45
 Gerar AR
 Asignar Doca
-
-HSH3F96
-Van
+HSH3F96Van
 Frete próprio ou contratado
-Agenda 08:45
-FTLVer ISs
+Agenda 08:45FTLVer ISs
 Em site:
 00:25:24
-Chegada: 09:59
-ATRASADO 1:14
-15 volumes
-821 unidades
+Chegada: 09:59ATRASADO 1:14
+15 volumes821 unidades
 Esperando doca
 00:25:24
 Gerar AR
 Asignar Doca
-
-DTD8E65
-Utilitário
+DTD8E65Utilitário
 Frete próprio ou contratado
-Agenda 09:45
-FTLVer ISs
+Agenda 09:45FTLVer ISs
 Em site:
 00:24:51
-Chegada: 10:00
-ATRASADO 0:15
-26 volumes
-925 unidades
+Chegada: 10:00ATRASADO 0:15
+26 volumes925 unidades
 Esperando doca
 00:24:51
 Gerar AR
 Asignar Doca
-
-EBS2A58
-Utilitário
+EBS2A58Utilitário
 Frete próprio ou contratado
-Agenda 08:15
-FTLVer ISs
+Agenda 08:15FTLVer ISs
 Em site:
 00:21:07
-Chegada: 10:03
-ATRASADO 1:48
-3 volumes
-234 unidades
+Chegada: 10:03ATRASADO 1:48
+3 volumes234 unidades
 Esperando doca
 00:21:07
 Gerar AR
 Asignar Doca
-
-EPM9H33
-Carro
+EPM9H33Carro
 Frete próprio ou contratado
-Agenda 08:45
-FTLVer ISs
+Agenda 08:45FTLVer ISs
 Em site:
 00:18:47
-Chegada: 10:06
-ATRASADO 1:21
-6 volumes
-998 unidades
+Chegada: 10:06ATRASADO 1:21
+6 volumes998 unidades
 Esperando doca
 00:18:47
 Gerar AR
 Asignar Doca
-
-FLT1560
-Médio
-
+FLT1560Médio
 Kangu
 Colecta
 Em site:
@@ -267,10 +535,7 @@ Esperando doca
 00:14:15
 Gerar AR
 Asignar Doca
-
-DVT4G20
-Toco
-
+DVT4G20Toco
 JM Transportes
 Colecta
 Em site:
@@ -281,10 +546,7 @@ Esperando doca
 00:10:44
 Gerar AR
 Asignar Doca
-
-EGK7473
-Vuc
-
+EGK7473Vuc
 Kangu
 Colecta
 Em site:
@@ -295,5 +557,3 @@ Esperando doca
 00:01:44
 Gerar AR
 Asignar Doca
-
-https://gustavougssouza-lab.github.io/fila-doca-brrc01./
