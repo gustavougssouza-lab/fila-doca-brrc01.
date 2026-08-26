@@ -189,17 +189,6 @@
     </div>
   </div>
 
-  <details>
-    <summary>Equipe do site: como atualizar a fila</summary>
-    <div class="card" style="margin-top:10px;">
-      <div class="helper" style="margin-bottom:12px;">
-        Esta página é 100% pública (GitHub Pages) e não tem botão de salvar — a atualização é feita direto no arquivo
-        <code>raw.txt</code> do repositório no GitHub. Cole ali o mesmo texto copiado do Dock Management (ou o formato PLACA;HH:MM, um por linha) e clique em "Commit changes". A página busca o arquivo automaticamente a cada abertura.
-      </div>
-      <a class="secondary-link" id="editRawLink" href="#" target="_blank" rel="noopener">Abrir editor do raw.txt no GitHub</a>
-    </div>
-  </details>
-
   <footer>Página pública hospedada no GitHub Pages — qualquer pessoa com o link pode consultar, sem precisar de login.</footer>
 </main>
 
@@ -358,12 +347,6 @@ function detectRepo() {
 }
 
 const repoInfo = detectRepo();
-const editLink = document.getElementById('editRawLink');
-if (repoInfo) {
-  editLink.href = 'https://github.com/' + repoInfo.owner + '/' + repoInfo.repo + '/edit/main/raw.txt';
-} else {
-  editLink.style.display = 'none';
-}
 
 let cachedSnapshot = null;
 
@@ -438,7 +421,7 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
   try {
     const snap = cachedSnapshot || await loadSnapshot();
     if (!snap.rows.length) {
-      showMsg('notFoundMsg', 'Ainda não há dados da fila. Peça para a equipe do site atualizar (veja "Equipe do site: como atualizar a fila" abaixo).', 'error');
+      showMsg('notFoundMsg', 'Ainda não há dados da fila. Peça para a equipe do site atualizar a fila.', 'error');
       return;
     }
 
