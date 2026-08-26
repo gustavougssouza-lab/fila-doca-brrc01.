@@ -357,7 +357,20 @@ async function loadSnapshot() {
   const res = await fetch('raw.txt?t=' + Date.now(), { cache: 'no-store' });
   if (!res.ok) throw new Error('raw.txt not found');
   const text = await res.text();
-  const rows = parseQueueInput(text);
+  // raw.txt can be either the raw Dock Management paste/PLACA;HH:MM text
+  // (manual edits via GitHub) or a JSON array of already-parsed rows
+  // (automatic sync from the Grid document). Detect and handle both.
+  let rows;
+  const trimmedText = text.trim();
+  if (trimmedText.startsWith('[')) {
+    try {
+      rows = JSON.parse(trimmedText);
+    } catch (err) {
+      rows = parseQueueInput(text);
+    }
+  } else {
+    rows = parseQueueInput(text);
+  }
   let updatedAt = null;
   if (repoInfo) {
     try {
