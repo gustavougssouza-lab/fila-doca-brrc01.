@@ -263,30 +263,9 @@ function splitByQty(waitingRows) {
   return { small: small, large: large, unknown: unknown };
 }
 
-// Average wait time = average elapsed time (now - chegada) of the 10 most
-// recent arrivals currently "Esperando doca" (excluding the plate being
-// searched). Falls back to however many are available if fewer than 10.
-function computeAvgWaitFromLast10(waitingRows, excludePlate) {
-  const now = new Date();
-  const nowMin = now.getHours() * 60 + now.getMinutes();
-
-  const candidates = waitingRows
-    .filter(function (r) { return normPlate(r.plate) !== excludePlate; })
-    .slice()
-    .sort(function (a, b) { return arrivalSortKey(b.chegadaMin) - arrivalSortKey(a.chegadaMin); }) // most recent first
-    .slice(0, 10);
-
-  if (!candidates.length) return { avgWait: null, sampleSize: 0 };
-
-  const elapsedList = candidates.map(function (r) {
-    let elapsed = nowMin - r.chegadaMin;
-    if (elapsed < 0) elapsed += 1440; // crossed midnight
-    return elapsed;
-  });
-
-  const avgWait = elapsedList.reduce(function (a, b) { return a + b; }, 0) / elapsedList.length;
-  return { avgWait: avgWait, sampleSize: candidates.length };
-}
+// Estimated wait is a fixed 1h30min counted from the vehicle's own arrival
+// time (chegada), regardless of queue position or group.
+const FIXED_WAIT_MINUTES = 90;
 
 // Parses the simple manual format: one line per vehicle, "PLACA;HH:MM"
 function parseSemicolonFormat(text) {
@@ -497,19 +476,14 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
     const idx = groupRows.findIndex(function (r) { return normPlate(r.plate) === plate; });
     const position = idx + 1;
     const entry = groupRows[idx];
-    const { avgWait, sampleSize } = computeAvgWaitFromLast10(groupRows, plate);
 
     document.getElementById('posValue').textContent = position;
     document.getElementById('posHelper').textContent = 'de ' + groupRows.length + ' veículo(s) no grupo (' + groupLabel + ')';
     document.getElementById('valChegada').textContent = entry.chegada;
 
-    if (avgWait !== null) {
-      document.getElementById('valEspera').textContent = fmtMinutes(avgWait) + ' (méd. últ. ' + sampleSize + ')';
-      document.getElementById('valEta').textContent = addMinutesToTime(entry.chegada, avgWait);
-    } else {
-      document.getElementById('valEspera').textContent = 'sem dado';
-      document.getElementById('valEta').textContent = 'sem dado';
-    }
+    // Fixed estimated wait: always 1h30min counted from the vehicle's own arrival time.
+    document.getElementById('valEspera').textContent = fmtMinutes(FIXED_WAIT_MINUTES);
+    document.getElementById('valEta').textContent = addMinutesToTime(entry.chegada, FIXED_WAIT_MINUTES);
 
     document.getElementById('resultCard').classList.add('show');
   } catch (err) {
