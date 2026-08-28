@@ -1,1 +1,1 @@
-[{"plate": "TAP7I05", "chegada": "18:08", "chegadaMin": 1088, "status": "A caminho", "doca": "16", "qty": 148}]
+[{"plate": "FNE4I41", "chegada": "18:07", "chegadaMin": 1087, "status": "Esperando doca", "doca": null, "qty": 63}, {"plate": "TAP7I05", "chegada": "18:08", "chegadaMin": 1088, "status": "Em doca", "doca": "16", "qty": 148}, {"plate": "EZF5J52", "chegada": "18:08", "chegadaMin": 1088, "status": "Esperando doca", "doca": null, "qty": 133}]
