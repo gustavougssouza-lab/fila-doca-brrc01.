@@ -170,7 +170,7 @@
   <div class="msg" id="notFoundMsg"></div>
 
   <div class="card result-card" id="resultCard">
-    <div class="eta-label">Posição na fila</div>
+    <div class="eta-label" id="etaLabel">Posição na fila</div>
     <div class="eta" id="posValue">–</div>
     <div class="helper" id="posHelper" style="text-align:center;margin-bottom:14px;">&nbsp;</div>
     <div class="info-grid">
@@ -178,11 +178,11 @@
         <div class="label">Chegada</div>
         <div class="value" id="valChegada">–</div>
       </div>
-      <div class="info-item">
+      <div class="info-item" id="esperaItem">
         <div class="label">Espera estimada</div>
         <div class="value" id="valEspera">–</div>
       </div>
-      <div class="info-item" style="grid-column: 1 / -1;">
+      <div class="info-item" id="etaItem" style="grid-column: 1 / -1;">
         <div class="label">Previsão para ser chamado</div>
         <div class="value" id="valEta" style="font-size:20px;">–</div>
       </div>
@@ -449,6 +449,20 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
       // Not in the waiting queue — check if it exists with another status
       // (a caminho / em doca / en salida) so we can give a more useful message.
       const other = snap.rows.find(function (r) { return normPlate(r.plate) === plate; });
+
+      if (other && other.status === 'Em doca' && other.doca) {
+        // Same card size/layout as the waiting queue, adapted to show the
+        // assigned dock instead of a queue position.
+        document.getElementById('etaLabel').textContent = 'Doca atribuída';
+        document.getElementById('posValue').textContent = other.doca;
+        document.getElementById('posHelper').textContent = 'Seu veículo está sendo atendido nesta doca.';
+        document.getElementById('valChegada').textContent = other.chegada;
+        document.getElementById('esperaItem').style.display = 'none';
+        document.getElementById('etaItem').style.display = 'none';
+        document.getElementById('resultCard').classList.add('show');
+        return;
+      }
+
       const otherMsg = other ? statusMessageFor(other) : null;
       if (otherMsg) {
         showMsg('notFoundMsg', otherMsg, 'info');
@@ -477,9 +491,12 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
     const position = idx + 1;
     const entry = groupRows[idx];
 
+    document.getElementById('etaLabel').textContent = 'Posição na fila';
     document.getElementById('posValue').textContent = position;
     document.getElementById('posHelper').textContent = 'de ' + groupRows.length + ' veículo(s) no grupo (' + groupLabel + ')';
     document.getElementById('valChegada').textContent = entry.chegada;
+    document.getElementById('esperaItem').style.display = '';
+    document.getElementById('etaItem').style.display = '';
 
     // Fixed estimated wait: always 1h30min counted from the vehicle's own arrival time.
     document.getElementById('valEspera').textContent = fmtMinutes(FIXED_WAIT_MINUTES);
