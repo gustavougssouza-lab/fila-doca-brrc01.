@@ -324,7 +324,11 @@ function parseQueueInput(text) {
 
 function statusMessageFor(row) {
   const status = row.status;
-  if (status === 'A caminho') return 'Seu veículo ainda está a caminho do site (ainda não chegou). Assim que chegar, ele entra na fila de espera.';
+  if (status === 'A caminho') {
+    return row.doca
+      ? 'Seu veículo ainda está a caminho do site (ainda não chegou). Já tem a Doca ' + row.doca + ' reservada — assim que chegar, é só se dirigir até lá.'
+      : 'Seu veículo ainda está a caminho do site (ainda não chegou). Assim que chegar, ele entra na fila de espera.';
+  }
   if (status === 'Em doca') {
     return row.doca
       ? 'Seu veículo já está sendo atendido na Doca ' + row.doca + '.'
