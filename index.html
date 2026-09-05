@@ -326,7 +326,7 @@ function statusMessageFor(row) {
   const status = row.status;
   if (status === 'A caminho') {
     if (row.doca && ['63', '263'].indexOf(String(row.doca).trim()) !== -1) {
-      return 'Seu veículo ainda está a caminho do site (ainda não chegou). Doca 63 registrada — RETORNAR AO GATE assim que chegar.';
+      return 'RETORNAR AO GATE';
     }
     return row.doca
       ? 'Seu veículo ainda está a caminho do site (ainda não chegou). Já tem a Doca ' + row.doca + ' reservada — assim que chegar, é só se dirigir até lá.'
@@ -334,7 +334,7 @@ function statusMessageFor(row) {
   }
   if (status === 'Em doca') {
     if (row.doca && ['63', '263'].indexOf(String(row.doca).trim()) !== -1) {
-      return 'Doca 63 registrada — RETORNAR AO GATE.';
+      return 'RETORNAR AO GATE';
     }
     return row.doca
       ? 'Seu veículo já está sendo atendido na Doca ' + row.doca + '.'
