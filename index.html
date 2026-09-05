@@ -325,11 +325,17 @@ function parseQueueInput(text) {
 function statusMessageFor(row) {
   const status = row.status;
   if (status === 'A caminho') {
+    if (row.doca && String(row.doca).trim() === '63') {
+      return 'Seu veículo ainda está a caminho do site (ainda não chegou). Doca 63 registrada — RETORNAR AO GATE assim que chegar.';
+    }
     return row.doca
       ? 'Seu veículo ainda está a caminho do site (ainda não chegou). Já tem a Doca ' + row.doca + ' reservada — assim que chegar, é só se dirigir até lá.'
       : 'Seu veículo ainda está a caminho do site (ainda não chegou). Assim que chegar, ele entra na fila de espera.';
   }
   if (status === 'Em doca') {
+    if (row.doca && String(row.doca).trim() === '63') {
+      return 'Doca 63 registrada — RETORNAR AO GATE.';
+    }
     return row.doca
       ? 'Seu veículo já está sendo atendido na Doca ' + row.doca + '.'
       : 'Seu veículo já está sendo atendido em uma doca.';
@@ -453,9 +459,13 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
       if (other && other.status === 'Em doca' && other.doca) {
         // Same card size/layout as the waiting queue, adapted to show the
         // assigned dock instead of a queue position.
-        document.getElementById('etaLabel').textContent = 'Doca atribuída';
-        document.getElementById('posValue').textContent = other.doca;
-        document.getElementById('posHelper').textContent = 'Seu veículo está sendo atendido nesta doca.';
+        // Special case: dock 63 means the driver must return to the gate.
+        const isDoca63 = String(other.doca).trim() === '63';
+        document.getElementById('etaLabel').textContent = isDoca63 ? 'Atenção' : 'Doca atribuída';
+        document.getElementById('posValue').textContent = isDoca63 ? 'RETORNAR AO GATE' : other.doca;
+        document.getElementById('posHelper').textContent = isDoca63
+          ? 'Doca 63 registrada — retorne ao gate.'
+          : 'Seu veículo está sendo atendido nesta doca.';
         document.getElementById('valChegada').textContent = other.chegada;
         document.getElementById('esperaItem').style.display = 'none';
         document.getElementById('etaItem').style.display = 'none';
