@@ -223,18 +223,6 @@ function addMinutesToTime(hhmm, mins) {
   return pad(Math.floor(total / 60)) + ':' + pad(total % 60);
 }
 
-// Minutes elapsed since a given "HH:MM" arrival time, relative to now.
-// Handles the case where the arrival was before midnight and now is after.
-function minutesSince(hhmm) {
-  const [h, m] = hhmm.split(':').map(Number);
-  const chegadaMin = h * 60 + m;
-  const now = new Date();
-  const nowMin = now.getHours() * 60 + now.getMinutes();
-  let diff = nowMin - chegadaMin;
-  if (diff < 0) diff += 1440;
-  return diff;
-}
-
 // The queue commonly spans midnight (e.g. arrivals from 21:00 through 01:00).
 // Plain "minutes since midnight" would sort 00:15 as earlier than 21:05, which
 // is wrong — 00:15 actually happened later. Since a dock queue's visible
@@ -321,7 +309,15 @@ function parseDockManagementPaste(text) {
     const qtyMatch = block.match(/(\d+)\s*(?:volumes|pacotes)/i);
     const qty = qtyMatch ? Number(qtyMatch[1]) : null;
 
-    rows.push({ plate: plate, chegada: chegada, chegadaMin: chegadaMin, status: status, doca: doca, qty: qty });
+    // Real elapsed time already "em doca" (HH:MM:SS), reported directly by
+    // Dock Management right below the "Em doca" label. This is NOT the same
+    // as time-since-arrival (there's usually a queue wait before the truck
+    // actually enters the dock), so it must come verbatim from the source,
+    // never be computed client-side.
+    const emDocaMatch = block.match(/Em\s*doca[^\d]*(\d{1,2}:\d{2}:\d{2})/i);
+    const emDocaTime = emDocaMatch ? emDocaMatch[1] : null;
+
+    rows.push({ plate: plate, chegada: chegada, chegadaMin: chegadaMin, status: status, doca: doca, qty: qty, emDocaTime: emDocaTime });
   }
   return rows;
 }
@@ -480,12 +476,15 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
           : 'Seu veículo está sendo atendido nesta doca.';
         document.getElementById('valChegada').textContent = other.chegada;
         document.getElementById('esperaItem').style.display = 'none';
-        if (isDoca63) {
+        // "Tempo em doca" only shown when Dock Management itself reported it —
+        // never computed from chegada, since there's usually a queue wait
+        // between arrival and actually entering the dock.
+        if (isDoca63 || !other.emDocaTime) {
           document.getElementById('etaItem').style.display = 'none';
         } else {
           document.getElementById('etaItem').style.display = '';
           document.querySelector('#etaItem .label').textContent = 'Tempo em doca';
-          document.getElementById('valEta').textContent = fmtMinutes(minutesSince(other.chegada));
+          document.getElementById('valEta').textContent = other.emDocaTime;
         }
         document.getElementById('resultCard').classList.add('show');
         return;
