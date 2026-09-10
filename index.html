@@ -475,16 +475,16 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
           ? 'Doca 63 registrada — retorne ao gate.'
           : 'Seu veículo está sendo atendido nesta doca.';
         document.getElementById('valChegada').textContent = other.chegada;
-        document.getElementById('esperaItem').style.display = 'none';
-        // "Tempo em doca" only shown when Dock Management itself reported it —
-        // never computed from chegada, since there's usually a queue wait
-        // between arrival and actually entering the dock.
+        document.getElementById('etaItem').style.display = 'none';
+        // "Em doca" time — shown as a box right beside "Chegada", only when
+        // Dock Management itself reported it (never computed from chegada,
+        // since there's usually a queue wait before actually entering the dock).
         if (isDoca63 || !other.emDocaTime) {
-          document.getElementById('etaItem').style.display = 'none';
+          document.getElementById('esperaItem').style.display = 'none';
         } else {
-          document.getElementById('etaItem').style.display = '';
-          document.querySelector('#etaItem .label').textContent = 'Tempo em doca';
-          document.getElementById('valEta').textContent = other.emDocaTime;
+          document.getElementById('esperaItem').style.display = '';
+          document.querySelector('#esperaItem .label').textContent = 'Em doca';
+          document.getElementById('valEspera').textContent = other.emDocaTime;
         }
         document.getElementById('resultCard').classList.add('show');
         return;
@@ -539,6 +539,7 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
     document.getElementById('posHelper').textContent = 'de ' + groupRows.length + ' veículo(s) no grupo (' + groupLabel + ')';
     document.getElementById('valChegada').textContent = entry.chegada;
     document.getElementById('esperaItem').style.display = '';
+    document.querySelector('#esperaItem .label').textContent = 'Espera estimada';
     document.getElementById('etaItem').style.display = '';
     document.querySelector('#etaItem .label').textContent = 'Previsão para ser chamado';
 
