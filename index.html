@@ -223,6 +223,18 @@ function addMinutesToTime(hhmm, mins) {
   return pad(Math.floor(total / 60)) + ':' + pad(total % 60);
 }
 
+// Minutes elapsed since a given "HH:MM" arrival time, relative to now.
+// Handles the case where the arrival was before midnight and now is after.
+function minutesSince(hhmm) {
+  const [h, m] = hhmm.split(':').map(Number);
+  const chegadaMin = h * 60 + m;
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  let diff = nowMin - chegadaMin;
+  if (diff < 0) diff += 1440;
+  return diff;
+}
+
 // The queue commonly spans midnight (e.g. arrivals from 21:00 through 01:00).
 // Plain "minutes since midnight" would sort 00:15 as earlier than 21:05, which
 // is wrong — 00:15 actually happened later. Since a dock queue's visible
@@ -468,7 +480,13 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
           : 'Seu veículo está sendo atendido nesta doca.';
         document.getElementById('valChegada').textContent = other.chegada;
         document.getElementById('esperaItem').style.display = 'none';
-        document.getElementById('etaItem').style.display = 'none';
+        if (isDoca63) {
+          document.getElementById('etaItem').style.display = 'none';
+        } else {
+          document.getElementById('etaItem').style.display = '';
+          document.querySelector('#etaItem .label').textContent = 'Tempo em doca';
+          document.getElementById('valEta').textContent = fmtMinutes(minutesSince(other.chegada));
+        }
         document.getElementById('resultCard').classList.add('show');
         return;
       }
@@ -507,6 +525,7 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
     document.getElementById('valChegada').textContent = entry.chegada;
     document.getElementById('esperaItem').style.display = '';
     document.getElementById('etaItem').style.display = '';
+    document.querySelector('#etaItem .label').textContent = 'Previsão para ser chamado';
 
     // Fixed estimated wait: always 1h30min counted from the vehicle's own arrival time.
     document.getElementById('valEspera').textContent = fmtMinutes(FIXED_WAIT_MINUTES);
