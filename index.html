@@ -490,6 +490,22 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
         return;
       }
 
+      if (other && other.status === 'A caminho' && other.doca) {
+        // Same big-card layout as "Em doca", but for a vehicle that already
+        // has a dock reserved while still en route (not yet arrived).
+        const isDoca63 = ['63', '263'].indexOf(String(other.doca).trim()) !== -1;
+        document.getElementById('etaLabel').textContent = isDoca63 ? 'Atenção' : 'Doca reservada';
+        document.getElementById('posValue').textContent = isDoca63 ? 'RETORNAR AO GATE' : other.doca;
+        document.getElementById('posHelper').textContent = isDoca63
+          ? 'Doca 63 registrada — retorne ao gate assim que chegar.'
+          : 'Ainda a caminho do site — assim que chegar, dirija-se a esta doca.';
+        document.getElementById('valChegada').textContent = other.chegada;
+        document.getElementById('esperaItem').style.display = 'none';
+        document.getElementById('etaItem').style.display = 'none';
+        document.getElementById('resultCard').classList.add('show');
+        return;
+      }
+
       const otherMsg = other ? statusMessageFor(other) : null;
       if (otherMsg) {
         showMsg('notFoundMsg', otherMsg, 'info');
