@@ -515,6 +515,19 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
       return;
     }
 
+    // Already has a dock assigned: ignore queue order, show the dock instead.
+    if (target.doca) {
+      const isDocaGate = ['63', '263'].indexOf(String(target.doca).trim()) !== -1;
+      document.getElementById('etaLabel').textContent = isDocaGate ? 'Atenção' : 'Direcionado a Doca';
+      document.getElementById('posValue').textContent = isDocaGate ? 'RETORNAR AO GATE' : target.doca;
+      document.getElementById('posHelper').textContent = '';
+      document.getElementById('valChegada').textContent = target.chegada;
+      document.getElementById('esperaItem').style.display = 'none';
+      document.getElementById('etaItem').style.display = 'none';
+      document.getElementById('resultCard').classList.add('show');
+      return;
+    }
+
     // Queue position = overall arrival order (earliest arrival = 1st) across
     // ALL vehicles waiting for a dock.
     const groupRows = waitingAll.slice().sort(function (a, b) {
