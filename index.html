@@ -254,7 +254,7 @@ function splitByQty(waitingRows) {
 
 // Estimated wait is a fixed 1h30min counted from the vehicle's own arrival
 // time (chegada), regardless of queue position or group.
-const FIXED_WAIT_MINUTES = 90;
+const FIXED_WAIT_MINUTES = 110;
 
 // Parses the simple manual format: one line per vehicle, "PLACA;HH:MM"
 function parseSemicolonFormat(text) {
@@ -556,7 +556,7 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
     document.getElementById('etaItem').style.display = '';
     document.querySelector('#etaItem .label').textContent = 'Previsão para ser chamado';
 
-    // Fixed estimated wait: always 1h30min counted from the vehicle's own arrival time.
+    // Fixed estimated wait: always 1h50min counted from the vehicle's own arrival time.
     document.getElementById('valEspera').textContent = fmtMinutes(FIXED_WAIT_MINUTES);
     document.getElementById('valEta').textContent = addMinutesToTime(entry.chegada, FIXED_WAIT_MINUTES);
 
