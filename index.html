@@ -530,7 +530,7 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
 
     // Queue position = overall arrival order (earliest arrival = 1st) across
     // ALL vehicles waiting for a dock.
-    const groupRows = waitingAll.slice().sort(function (a, b) {
+    const groupRows = waitingAll.filter(function (r) { return !r.doca; }).sort(function (a, b) {
       return arrivalSortKey(a.chegadaMin) - arrivalSortKey(b.chegadaMin);
     });
     const idx = groupRows.findIndex(function (r) { return normPlate(r.plate) === plate; });
@@ -539,7 +539,7 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
 
     document.getElementById('etaLabel').textContent = 'Posição na fila';
     document.getElementById('posValue').textContent = position;
-    document.getElementById('posHelper').textContent = 'por ordem de chegada · de ' + groupRows.length + ' veículo(s) esperando' + (entry.doca ? ' · Doca ' + entry.doca : '');
+    document.getElementById('posHelper').textContent = 'por ordem de chegada · de ' + groupRows.length + ' veículo(s) esperando';
     document.getElementById('valChegada').textContent = entry.chegada;
     document.getElementById('esperaItem').style.display = '';
     document.querySelector('#esperaItem .label').textContent = 'Espera estimada';
