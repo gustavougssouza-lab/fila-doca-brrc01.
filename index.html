@@ -515,28 +515,18 @@ document.getElementById('searchBtn').addEventListener('click', async function ()
       return;
     }
 
-    // Position and wait time are computed within the vehicle's own group
-    // (by shipment size), since each group is queued separately.
-    const groups = splitByQty(waitingAll);
-    let groupRows, groupLabel;
-    if (target.qty === null || target.qty === undefined) {
-      groupRows = groups.unknown;
-      groupLabel = 'sem informação de volume/pacotes';
-    } else if (target.qty <= QTY_THRESHOLD) {
-      groupRows = groups.small;
-      groupLabel = 'até 50 vol./pacotes';
-    } else {
-      groupRows = groups.large;
-      groupLabel = 'mais de 50 vol./pacotes';
-    }
-
+    // Queue position = overall arrival order (earliest arrival = 1st) across
+    // ALL vehicles waiting for a dock.
+    const groupRows = waitingAll.slice().sort(function (a, b) {
+      return arrivalSortKey(a.chegadaMin) - arrivalSortKey(b.chegadaMin);
+    });
     const idx = groupRows.findIndex(function (r) { return normPlate(r.plate) === plate; });
     const position = idx + 1;
     const entry = groupRows[idx];
 
     document.getElementById('etaLabel').textContent = 'Posição na fila';
     document.getElementById('posValue').textContent = position;
-    document.getElementById('posHelper').textContent = 'de ' + groupRows.length + ' veículo(s) no grupo (' + groupLabel + ')';
+    document.getElementById('posHelper').textContent = 'por ordem de chegada · de ' + groupRows.length + ' veículo(s) esperando' + (entry.doca ? ' · Doca ' + entry.doca : '');
     document.getElementById('valChegada').textContent = entry.chegada;
     document.getElementById('esperaItem').style.display = '';
     document.querySelector('#esperaItem .label').textContent = 'Espera estimada';
