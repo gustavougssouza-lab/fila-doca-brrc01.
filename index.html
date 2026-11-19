@@ -366,6 +366,15 @@ function detectRepo() {
 
 const repoInfo = detectRepo();
 
+// Docks 200–300 are shown without the hundreds digit (229 -> 29, 263 -> 63).
+function normDoca(d) {
+  if (d === null || d === undefined || d === '') return d;
+  const n = parseInt(String(d).trim(), 10);
+  if (isNaN(n) || n < 200 || n > 300) return d;
+  const r = n % 100;
+  return r === 0 ? d : String(r);
+}
+
 let cachedSnapshot = null;
 
 async function loadSnapshot() {
@@ -404,6 +413,7 @@ async function loadSnapshot() {
       // ignore — page still works without the "last updated" hint
     }
   }
+  rows.forEach(function (r) { if (r) r.doca = normDoca(r.doca); });
   const snap = { rows: rows, updatedAt: updatedAt };
   cachedSnapshot = snap;
   return snap;
